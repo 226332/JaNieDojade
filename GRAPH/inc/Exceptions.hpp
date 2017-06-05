@@ -1,7 +1,7 @@
 /*
- * Includes.hpp
+ * Exceptions.hpp
  *
- *  Created on: May 31, 2017
+ *  Created on: Jun 5, 2017
  *      Author: 226332
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -18,16 +18,14 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GUI_INC_INCLUDES_HPP_
-#define GUI_INC_INCLUDES_HPP_
-#include "Defines.hpp"
-#include <map>
-#include <vector>
-#include <list>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <memory>
-#include <set>
+#ifndef GRAPH_INC_EXCEPTIONS_HPP_
+#define GRAPH_INC_EXCEPTIONS_HPP_
+#include "includes.hpp"
+class No_Node_Exception: public std::runtime_error {
+  No_Node_Exception(const std::string &m) :
+      std::runtime_error("Node: " + m + " Not found!"){
+  }
 
-#endif /* GUI_INC_INCLUDES_HPP_ */
+}
+
+#endif /* GRAPH_INC_EXCEPTIONS_HPP_ */

@@ -22,10 +22,9 @@
 #define GUI_INC_VERTEX_HPP_
 #include "Includes.hpp"
 
-
 class Vertex {
   std::vector<std::pair<std::string, int>> adjacency;
-  std::vector<std::string> id;
+  std::set<std::string> id;
   std::string name;
   std::pair<double, double> cords;
 
@@ -51,16 +50,16 @@ public:
     return cords;
   }
 
-  void addNeighbour(const std::string &n,const int &wgt){
-    adjacency.push_back(std::pair<std::string,int>(n,wgt));
+  void addNeighbour(const std::string &n, const int &wgt){
+    adjacency.push_back(std::pair<std::string, int>(n, wgt));
   }
 
   void addID(const std::string &I){
-    id.push_back(I);
+    id.insert(I);
   }
 
   bool hasID(const std::string &I){
-    return find(id.begin(),id.end(),I)!= id.end();
+    return id.find(I) != id.end();
   }
 
 };

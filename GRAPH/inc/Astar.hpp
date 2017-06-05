@@ -1,7 +1,7 @@
 /*
- * Includes.hpp
+ * Astar.hpp
  *
- *  Created on: May 31, 2017
+ *  Created on: Jun 5, 2017
  *      Author: 226332
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -18,16 +18,14 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GUI_INC_INCLUDES_HPP_
-#define GUI_INC_INCLUDES_HPP_
-#include "Defines.hpp"
-#include <map>
-#include <vector>
-#include <list>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <memory>
-#include <set>
+#ifndef GRAPH_INC_ASTAR_HPP_
+#define GRAPH_INC_ASTAR_HPP_
+#include "Includes.hpp"
+#include "Ipathfinder.hpp"
+class Astar: public Ipathfinder {
+public:
+  std::vector<std::string> find_path(const Igraph & graph, const Vertex &start,
+      const Vertex &finish);
+};
 
-#endif /* GUI_INC_INCLUDES_HPP_ */
+#endif /* GRAPH_INC_ASTAR_HPP_ */

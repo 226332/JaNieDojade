@@ -26,13 +26,15 @@
 
 class Igraph {
 public:
-
+//must add vertex with full ID list
   virtual void addVertex(const Vertex &v)=0;
 
   virtual void addEdge(const Edge &e)=0;
 
-  virtual vector<std::string> findPath(const Ipathfinder &ptf)=0;
+  virtual const std::vector<std::string> &findPath(const Ipathfinder &ptf,
+      const Vertex &start, const Vertex &finish)=0; //accept Visitor
+
+  virtual ~Igraph();
 
 };
-
 #endif /* GUI_INC_IGRAPH_HPP_ */

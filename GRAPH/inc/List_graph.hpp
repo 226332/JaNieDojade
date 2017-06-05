@@ -1,7 +1,7 @@
 /*
- * Edge.hpp
+ * List_graph.hpp
  *
- *  Created on: May 31, 2017
+ *  Created on: Jun 5, 2017
  *      Author: 226332
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -18,31 +18,36 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GUI_INC_EDGE_HPP_
-#define GUI_INC_EDGE_HPP_
+#ifndef GRAPH_INC_LIST_GRAPH_HPP_
+#define GRAPH_INC_LIST_GRAPH_HPP_
 #include "Includes.hpp"
-#include "Vertex.hpp"
+#include "Igraph.hpp"
 
-class Edge {
-  std::string src, dst; //source and destination;
-  int weight;
+class List_graph: public Igraph {
+
+  std::map<std::string, Vertex> nodes;
+
 public:
-  Edge(std::string const &s, std::string const &d, int const &w) :
-      src(s), dst(d), weight(w){
+  void addVertex(const Vertex &v){
+    nodes.insert(std::make_pair(v.name, v));
   }
 
-  int getWeight()const {
-    return weight;
+  void addEdge(const Edge &e){
+    if (nodes.find(e.getSource()) != nodes.end()){
+      nodes[e.getSource()].addNeighbour(e.getDestination(), e.getWeight());
+    } else{
+      throw No_Node_Exception(e.getSource());
+    }
   }
 
-  const std::string  &getSource()const {
-    return src;
+  const std::vector<std::string> &findPath(const Ipathfinder &ptf,
+      const Vertex &start, const Vertex &finish){
+    return ptf.find_path(*this, start, finish);
   }
 
-  const std::string &getDestination()const {
-    return dst;
+  ~List_graph(){
   }
-
+  ;
 };
 
-#endif /* GUI_INC_EDGE_HPP_ */
+#endif /* GRAPH_INC_LIST_GRAPH_HPP_ */
