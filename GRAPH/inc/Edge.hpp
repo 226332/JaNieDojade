@@ -24,10 +24,10 @@
 #include "Vertex.hpp"
 
 class Edge {
-  pointer<Vertex> src, dst; //source and destination;
+  std::string src, dst; //source and destination;
   int weight;
 public:
-  Edge(pointer<Vertex> const &s, pointer<Vertex> const &d, int const &w) :
+  Edge(std::string const &s, std::string const &d, int const &w) :
       src(s), dst(d), weight(w){
   }
 
@@ -35,16 +35,14 @@ public:
     return weight;
   }
 
-  pointer<Vertex> const &getSource(){
+  std::string const &getSource(){
     return src;
   }
 
-  pointer<Vertex> const &getDestination(){
+  std::string const &getDestination(){
     return dst;
   }
 
 };
-
-
 
 #endif /* GUI_INC_EDGE_HPP_ */

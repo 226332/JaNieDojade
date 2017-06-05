@@ -22,14 +22,12 @@
 #define GUI_INC_VERTEX_HPP_
 #include "Includes.hpp"
 
-using both=std::pair;
-using pointer=std::shared_ptr;
-using neighbour=both<pointer<Vertex>, int>;//pointer and weight
 
 class Vertex {
-  std::list<neighbour> adjacency;
-  std::string id, name;
-  both<double, double> cords;
+  std::vector<std::pair<std::string, int>> adjacency;
+  std::vector<std::string> id;
+  std::string name;
+  std::pair<double, double> cords;
 
 public:
   Vertex(const std::string &i, const std::string &n, const double &lon,
@@ -41,17 +39,28 @@ public:
     return name;
   }
      
-
   const std::string &getId() const{
     return id;
   }
 
-  const std::list<neighbour> &getNeighbours(){
+  const std::vector<std::pair<std::string, int>> &getNeighbours(){
     return adjacency;
   }
 
-  const both &getCords(){
+  const std::pair<double, double> &getCords(){
     return cords;
+  }
+
+  void addNeighbour(const std::string &n,const int &wgt){
+    adjacency.push_back(std::pair<std::string,int>(n,wgt));
+  }
+
+  void addID(const std::string &I){
+    id.push_back(I);
+  }
+
+  bool hasID(const std::string &I){
+    return find(id.begin(),id.end(),I)!= id.end();
   }
 
 };

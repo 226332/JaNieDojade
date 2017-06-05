@@ -29,8 +29,4 @@
 #include <algorithm>
 #include <memory>
 
-
-
-
-
 #endif /* GUI_INC_INCLUDES_HPP_ */

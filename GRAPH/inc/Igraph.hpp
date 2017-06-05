@@ -20,16 +20,19 @@
 
 #ifndef GUI_INC_IGRAPH_HPP_
 #define GUI_INC_IGRAPH_HPP_
+#include "Includes.hpp"
 #include "Vertex.hpp"
-class Igraph{
+#include "Edge.hpp"
+
+class Igraph {
 public:
-  virtual void addVertex()=0;
 
+  virtual void addVertex(const Vertex &v)=0;
 
+  virtual void addEdge(const Edge &e)=0;
 
+  virtual vector<std::string> findPath(const Ipathfinder &ptf)=0;
 
 };
-
-
 
 #endif /* GUI_INC_IGRAPH_HPP_ */

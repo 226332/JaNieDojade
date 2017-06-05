@@ -24,7 +24,7 @@
 #include "Vertex.hpp"
 
 class Route {
-  std::vector<both<pointer<Vertex>,int>> stations;//station,absolute time
+  std::vector<std::pair<std::string, int>> stations; //name,absolute time
   std::string name;
   char type;
   char var; //variation
@@ -33,8 +33,8 @@ public:
       name(n), type(t), var(v){
   }
 
-  void addEdge(pointer<Edge> const &s){
-    stations.push_back(s);
+  void addStop(const std::string &n, const int &wgt){
+    stations.push_back(std::pair<std::string, int>(n, wgt));
   }
 
   char getType(){
@@ -49,13 +49,10 @@ public:
     return name;
   }
 
-  const std::vector<both<pointer<Vertex>,int>> &getStations(){
+  const std::vector<std::pair<std::string, int>> &getStations(){
     return stations;
   }
 
 };
-
-
-
 
 #endif /* GUI_INC_ROUTE_HPP_ */
