@@ -25,7 +25,7 @@
 class Astar: public Ipathfinder {
 public:
   std::vector<std::string> find_path(const Igraph & graph, const Vertex &start,
-      const Vertex &finish);
+      const Vertex &finish)const ;
 };
 
 #endif /* GRAPH_INC_ASTAR_HPP_ */

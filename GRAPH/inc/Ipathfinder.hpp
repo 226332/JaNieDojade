@@ -22,15 +22,18 @@
 #ifndef GRAPH_INC_IPATHFINDER_HPP_
 #define GRAPH_INC_IPATHFINDER_HPP_
 #include "Includes.hpp"
+#include "Vertex.hpp"
 #include "Igraph.hpp"
+
+class Igraph;
+
 class Ipathfinder {
 public:
   virtual const std::vector<std::string> &find_path(const Igraph & graph,
-      const Vertex &start, const Vertex &finish)=0;
+      const Vertex &start, const Vertex &finish) const=0;
 
   virtual ~Ipathfinder(){
   }
-  ;
 };
 
 #endif /* GRAPH_INC_IPATHFINDER_HPP_ */

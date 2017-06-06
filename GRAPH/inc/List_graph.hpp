@@ -22,14 +22,20 @@
 #define GRAPH_INC_LIST_GRAPH_HPP_
 #include "Includes.hpp"
 #include "Igraph.hpp"
+#include "Ipathfinder.hpp"
 
 class List_graph: public Igraph {
 
   std::map<std::string, Vertex> nodes;
 
 public:
+
+  List_graph() :
+      nodes { }{
+  }
+
   void addVertex(const Vertex &v){
-    nodes.insert(std::make_pair(v.name, v));
+    nodes.insert(std::make_pair(v.getName(), v));
   }
 
   void addEdge(const Edge &e){
@@ -40,8 +46,13 @@ public:
     }
   }
 
+  const Vertex& find_Vertex(const std::string &n) const{
+    return nodes.at(n);
+  }
+
   const std::vector<std::string> &findPath(const Ipathfinder &ptf,
-      const Vertex &start, const Vertex &finish){
+      const Vertex &start, const Vertex &finish) const{
+
     return ptf.find_path(*this, start, finish);
   }
 

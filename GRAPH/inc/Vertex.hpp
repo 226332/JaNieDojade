@@ -31,22 +31,27 @@ class Vertex {
 public:
   Vertex(const std::string &i, const std::string &n, const double &lon,
       const double &lat) :
-      id(i), name(n), cords(lon, lat){
+      name(n), cords(lon, lat){
+    id.insert(i);
+  }
+
+  Vertex() :
+    id{},name{},cords{}{
   }
 
   const std::string &getName() const{
     return name;
   }
-     
-  const std::string &getId() const{
+
+  const std::set<std::string> &getIDs() const{
     return id;
   }
 
-  const std::vector<std::pair<std::string, int>> &getNeighbours(){
+  const std::vector<std::pair<std::string, int>> &getNeighbours() const{
     return adjacency;
   }
 
-  const std::pair<double, double> &getCords(){
+  const std::pair<double, double> &getCords() const{
     return cords;
   }
 
@@ -58,9 +63,10 @@ public:
     id.insert(I);
   }
 
-  bool hasID(const std::string &I){
+  bool hasID(const std::string &I)const{
     return id.find(I) != id.end();
   }
+
 
 };
 

@@ -20,12 +20,13 @@
 
 #ifndef GRAPH_INC_EXCEPTIONS_HPP_
 #define GRAPH_INC_EXCEPTIONS_HPP_
-#include "includes.hpp"
+#include "Includes.hpp"
 class No_Node_Exception: public std::runtime_error {
+public:
   No_Node_Exception(const std::string &m) :
       std::runtime_error("Node: " + m + " Not found!"){
   }
 
-}
+};
 
 #endif /* GRAPH_INC_EXCEPTIONS_HPP_ */

@@ -29,5 +29,7 @@
 #include <algorithm>
 #include <memory>
 #include <set>
+#include "Exceptions.hpp"
+
 
 #endif /* GUI_INC_INCLUDES_HPP_ */
