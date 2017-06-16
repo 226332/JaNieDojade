@@ -26,7 +26,13 @@ public:
   No_Node_Exception(const std::string &m) :
       std::runtime_error("Node: " + m + " Not found!"){
   }
+};
 
+class No_Route_Found_Exception: public std::runtime_error {
+public:
+  No_Route_Found_Exception(const std::string &s, const std::string &f) :
+      std::runtime_error("Can't get from: " + s + " to: " + f + "!"){
+  }
 };
 
 #endif /* GRAPH_INC_EXCEPTIONS_HPP_ */

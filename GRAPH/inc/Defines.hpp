@@ -21,9 +21,11 @@
 #ifndef GUI_INC_DEFINES_HPP_
 #define GUI_INC_DEFINES_HPP_
 
-constexpr char BUS='B';
-constexpr char TRAM='T';
-
-
+constexpr char BUS = 'B';
+constexpr char TRAM = 'T';
+constexpr double PI = 3.14159265;
+constexpr int R = 6371; //earth radius in meters
+constexpr double AVG_TRAM_SPEED=20.5; //in km/h
+constexpr double KMH_TO_MPM=1000/60;
 
 #endif /* GUI_INC_DEFINES_HPP_ */

@@ -24,8 +24,14 @@
 #include "Ipathfinder.hpp"
 class Astar: public Ipathfinder {
 public:
-  std::vector<std::string> find_path(const Igraph & graph, const Vertex &start,
-      const Vertex &finish)const ;
+  std::vector<std::string> &find_path(const Vertex &start,
+      const Vertex &finish) const;
+
+  //returns minutes it takes average tram to get straight to the point
+  int h_cost(const Vertex &start, const Vertex &finish) const;
+
+
+  std::vector<std::string> reconstruct_path(const std::map<&std::string, int> &cf, Vertex *curr)const ;
 };
 
 #endif /* GRAPH_INC_ASTAR_HPP_ */

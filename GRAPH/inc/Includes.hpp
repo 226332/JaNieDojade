@@ -29,6 +29,8 @@
 #include <algorithm>
 #include <memory>
 #include <set>
+#include <climits>
+#include <cmath>
 #include "Exceptions.hpp"
 
 
