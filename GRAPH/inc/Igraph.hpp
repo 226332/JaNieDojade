@@ -37,7 +37,11 @@ public:
 
   virtual const Vertex& find_Vertex(const std::string &n) const=0;
 
-  virtual const std::vector<std::string> &findPath(const Ipathfinder &ptf,
+  virtual void print_nodes()const=0;
+
+  virtual const std::map<std::string, Vertex>& getVertexes() const=0;
+
+  virtual const std::vector<std::string> findPath(const Ipathfinder &ptf,
       const Vertex &start, const Vertex &finish) const =0; //accept Visitor
 
   virtual ~Igraph(){

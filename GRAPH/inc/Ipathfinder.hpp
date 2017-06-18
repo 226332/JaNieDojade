@@ -29,8 +29,8 @@ class Igraph;
 
 class Ipathfinder {
 public:
-  virtual const std::vector<std::string> &&find_path(const Vertex &start,
-      const Vertex &finish,const Igraph &graph) const=0;
+  virtual std::vector<std::string> find_path(const Vertex &start,
+      const Vertex &finish, const Igraph &graph) const=0;
 
   virtual ~Ipathfinder(){
   }

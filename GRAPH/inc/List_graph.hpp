@@ -38,6 +38,7 @@ public:
     nodes.insert(std::make_pair(v.getName(), v));
   }
 
+
   void addEdge(const Edge &e){
     if (nodes.find(e.getSource()) != nodes.end()){
       nodes[e.getSource()].addNeighbour(e.getDestination(), e.getWeight());
@@ -50,9 +51,12 @@ public:
     return nodes.at(n);
   }
 
-  const std::vector<std::string> &findPath(const Ipathfinder &ptf,
-      const Vertex &start, const Vertex &finish) const{
+  const std::map<std::string, Vertex>& getVertexes() const{
+    return nodes;
+  }
 
+  const std::vector<std::string> findPath(const Ipathfinder &ptf,
+      const Vertex &start, const Vertex &finish) const override{
     return ptf.find_path(start, finish,*this);
   }
 

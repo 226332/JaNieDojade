@@ -26,7 +26,6 @@ int Astar::h_cost(const Vertex &start, const Vertex &finish){
   double lon1 = (PI / 180) * start.getCords().first;
   double lon2 = (PI / 180) * finish.getCords().first;
 
-
   double delta_Lat = std::abs(lat1 - lat2);
   double delta_Lon = std::abs(lon1 - lon2);
 
@@ -35,65 +34,76 @@ int Astar::h_cost(const Vertex &start, const Vertex &finish){
 
   double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
-  return round(R * c / (AVG_TRAM_SPEED * KPH_TO_MPM));
+  return (int) round(R * c / (AVG_TRAM_SPEED * KPH_TO_MPM));
 }
 
-const std::vector<std::string> &&Astar::find_path(const Vertex &start,
+std::vector<std::string> Astar::find_path(const Vertex &start,
     const Vertex &finish, const Igraph &graph) const{
 
-  std::set<const std::string*> closed_Set { };
-  std::set<const std::string*> open_Set { &start.getName() };
+  std::set<std::string> closed_Set { };
+  std::set<std::string> open_Set { start.getName() };
 
-  std::map<const std::string*, const Vertex*> came_From { };
+  std::map<std::string, const Vertex*> came_From { };
 
-  std::map<const std::string*, int> g_Score { { &start.getName(), 0 } };
-  std::map<const std::string*, int> f_Score { { &start.getName(), h_cost(start,
-      finish) } };
+  std::map<std::string, int> g_Score { };
+  std::map<std::string, int> f_Score { };
 
+  for (auto&i : graph.getVertexes()){
+    g_Score[i.first] = INT_MAX;
+    f_Score[i.first] = INT_MAX;
+  }
+
+  g_Score[start.getName()] = 0;
+  f_Score[start.getName()] = h_cost(start, finish);
+  const Vertex *current { };
   while (!open_Set.empty()){
-    const Vertex *current { };
+
     int minscore = INT_MAX;
     for (auto& i : open_Set){
-      if (minscore > f_Score[i]){
-        minscore = f_Score[i];
-        current = &graph.find_Vertex(*i);
+      if (minscore > f_Score.at(i)){
+        minscore = f_Score.at(i);
+        current = &graph.find_Vertex(i);
       }
     }
     if (current == &finish){
-      return std::move(reconstruct_path(came_From, current));
+      return reconstruct_path(came_From, current);
     }
-    open_Set.erase(&current->getName());
-    closed_Set.insert(&current->getName());
+    open_Set.erase(current->getName());
+    closed_Set.insert(current->getName());
 
     for (auto &i : current->getNeighbours()){
-      if (closed_Set.count(&i.first)){
+      if (closed_Set.count(i.first)){
         continue;
       } else{
-        open_Set.insert(&i.first);
+        open_Set.insert(i.first);
       }
 
-      auto tentative_g_Score = g_Score[&current->getName()]
-          + std::find(current->getNeighbours().begin(),
-              current->getNeighbours().end(), i)->second;
-      if (tentative_g_Score >= g_Score[&i.first]){
+      int tentative_g_Score = g_Score.at(current->getName())
+          + current->getWeight(i.first);
+
+      if (tentative_g_Score >= g_Score.at(i.first)){
         continue;
       }
-      came_From[&i.first] = current;
-      g_Score[&i.first] = tentative_g_Score;
-      f_Score[&i.first] = g_Score[&i.first]
+
+      came_From[i.first] = current;
+      g_Score.at(i.first) = tentative_g_Score;
+      f_Score.at(i.first) = g_Score.at(i.first)
           + h_cost(graph.find_Vertex(i.first), finish);
+
+
     }
   }
   throw No_Route_Found_Exception(start.getName(), finish.getName());
 }
 
-std::vector<std::string> &&Astar::reconstruct_path(
-    std::map<const std::string*, const Vertex*> &cf, const Vertex *curr) const{
-  std::vector<std::string> total_path { curr->getName() };
-  while (cf.count(&curr->getName())){
-    curr = cf[&curr->getName()];
-    total_path.push_back(curr->getName());
+std::vector<std::string> Astar::reconstruct_path(
+    std::map<std::string, const Vertex*> &cf, const Vertex *curr) const{
+  std::list<std::string> total_path { curr->getName() };
+  while (cf.count(curr->getName())){
+    curr = cf[curr->getName()];
+    total_path.push_front(curr->getName());
   }
-  return std::move(total_path);
+
+  return std::vector<std::string>(total_path.begin(),total_path.end());
 }
 

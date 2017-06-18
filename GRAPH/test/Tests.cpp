@@ -19,12 +19,17 @@
  */
 // THIS FILE REQUIRES BOOST TO WORK CORRECTLY!
 #define BOOST_TEST_MAIN
+#define BOOST_TEST_MODULE MyTest
 #if !defined( WIN32 )
 #define BOOST_TEST_DYN_LINK
 #endif
 #include <boost/test/unit_test.hpp>
+
+
 #include "../inc/List_graph.hpp"
 #include "../inc/Astar.hpp"
+
+
 
 namespace {
 struct Fixture {
@@ -72,17 +77,16 @@ BOOST_AUTO_TEST_CASE(Can_find_a_path){
   test3.addNeighbour("testowy4", 1);
   test4.addNeighbour("testowy5", 1);
 
-  List_graph graph{};
 
-  graph.addVertex(test);
-  graph.addVertex(test1);
-  graph.addVertex(test2);
-  graph.addVertex(test3);
-  graph.addVertex(test4);
-  graph.addVertex(test5);
+  g.addVertex(test);
+  g.addVertex(test1);
+  g.addVertex(test2);
+  g.addVertex(test3);
+  g.addVertex(test4);
+  g.addVertex(test5);
 
   Astar astor{};
-  auto tested=graph.findPath(astor,test3,test5);
+  auto tested=g.findPath(astor,g.find_Vertex("testowy3"),g.find_Vertex("testowy5"));
   decltype(tested) target{"testowy3","testowy4","testowy5"};
 
   bool result=std::equal(tested.begin(),tested.end(),target.begin()) ;

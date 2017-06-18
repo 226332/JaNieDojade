@@ -23,16 +23,14 @@
 #include "Includes.hpp"
 #include "Ipathfinder.hpp"
 class Astar: public Ipathfinder {
-  std::vector<std::string> &&reconstruct_path(
-      std::map<const std::string*, const Vertex*> &cf,
-      const Vertex *curr) const;
+  std::vector<std::string> reconstruct_path(
+      std::map< std::string, const Vertex*> &cf, const Vertex *curr) const;
 public:
-  const std::vector<std::string> &&find_path(const Vertex &start,
+  std::vector<std::string> find_path(const Vertex &start,
       const Vertex &finish, const Igraph &graph) const override;
 
   //returns minutes it takes average tram to get straight to the point
   static int h_cost(const Vertex &start, const Vertex &finish);
-
 
 };
 

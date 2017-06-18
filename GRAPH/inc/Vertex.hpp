@@ -23,7 +23,7 @@
 #include "Includes.hpp"
 
 class Vertex {
-  std::vector<std::pair<std::string, int>> adjacency;
+  std::map<std::string, int> adjacency;
   std::set<std::string> id;
   std::string name;
   std::pair<double, double> cords; //longitude, latitude
@@ -31,7 +31,7 @@ class Vertex {
 public:
   Vertex(const std::string &i, const std::string &n, const double &lon,
       const double &lat) :
-      id { i }, name(n), cords(lon, lat){
+      adjacency { }, id { i }, name(n), cords(lon, lat){
   }
 
   Vertex(const Vertex &v) :
@@ -50,8 +50,12 @@ public:
     return id;
   }
 
-  const std::vector<std::pair<std::string, int>> &getNeighbours() const{
+  const std::map<std::string, int> &getNeighbours() const{
     return adjacency;
+  }
+
+  const int &getWeight(const std::string &s) const{
+    return adjacency.at(s);
   }
 
   const std::pair<double, double> &getCords() const{
@@ -59,7 +63,7 @@ public:
   }
 
   void addNeighbour(const std::string &n, const int &wgt){
-    adjacency.push_back(std::pair<std::string, int>(n, wgt));
+    adjacency[n] = wgt;
   }
 
   void addID(const std::string &I){
