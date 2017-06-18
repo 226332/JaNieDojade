@@ -25,6 +25,8 @@
 #include "Edge.hpp"
 #include "Ipathfinder.hpp"
 
+class Ipathfinder;
+
 class Igraph {
 public:
 //must add vertex with full ID list or else it will be a mess

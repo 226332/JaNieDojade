@@ -24,6 +24,7 @@
 #endif
 #include <boost/test/unit_test.hpp>
 #include "../inc/List_graph.hpp"
+#include "../inc/Astar.hpp"
 
 namespace {
 struct Fixture {
@@ -48,6 +49,45 @@ BOOST_AUTO_TEST_CASE(Are_basic_things_working){
       std::equal(IDtest.begin(), IDtest.end(), start,
           [](const std::string &a, const std::string &b)->bool{return a==b;}),
       true);
+}
+
+BOOST_AUTO_TEST_CASE(Can_calculate_weight){
+  Vertex test("69789", "testowy", 57.4, 67.5);
+  Vertex test2("63455", "testowy2", 50, 61.5);
+  int result=Astar::h_cost(test,test2);
+  BOOST_REQUIRE_EQUAL(result ,round(754200/(AVG_TRAM_SPEED * KPH_TO_MPM)));
+}
+
+BOOST_AUTO_TEST_CASE(Can_find_a_path){
+  Vertex test("0000", "testowy", 0, 0);
+  Vertex test1("1111", "testowy1", 1, 1);
+  Vertex test2("2222", "testowy2", 2, 2);
+  Vertex test3("3333", "testowy3", 3, 3);
+  Vertex test4("4444", "testowy4", 4, 4);
+  Vertex test5("5555", "testowy5", 5, 5);
+
+  test.addNeighbour("testowy1", 1);
+  test1.addNeighbour("testowy2", 1);
+  test2.addNeighbour("testowy3", 1);
+  test3.addNeighbour("testowy4", 1);
+  test4.addNeighbour("testowy5", 1);
+
+  List_graph graph{};
+
+  graph.addVertex(test);
+  graph.addVertex(test1);
+  graph.addVertex(test2);
+  graph.addVertex(test3);
+  graph.addVertex(test4);
+  graph.addVertex(test5);
+
+  Astar astor{};
+  auto tested=graph.findPath(astor,test3,test5);
+  decltype(tested) target{"testowy3","testowy4","testowy5"};
+
+  bool result=std::equal(tested.begin(),tested.end(),target.begin()) ;
+
+  BOOST_REQUIRE_EQUAL(result,true);
 }
 
 BOOST_AUTO_TEST_SUITE_END()}

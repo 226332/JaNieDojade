@@ -53,7 +53,13 @@ public:
   const std::vector<std::string> &findPath(const Ipathfinder &ptf,
       const Vertex &start, const Vertex &finish) const{
 
-    return ptf.find_path(start, finish);
+    return ptf.find_path(start, finish,*this);
+  }
+
+  void print_nodes()const{
+    for (auto &i:nodes){
+      std::cout<<i.first<<std::endl;
+    }
   }
 
   ~List_graph(){

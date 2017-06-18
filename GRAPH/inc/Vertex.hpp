@@ -31,12 +31,11 @@ class Vertex {
 public:
   Vertex(const std::string &i, const std::string &n, const double &lon,
       const double &lat) :
-      name(n), cords(lon, lat){
-    id.insert(i);
+      id { i }, name(n), cords(lon, lat){
   }
 
   Vertex(const Vertex &v) :
-      adjacency(v.adjacency), name(v.name), cords(v.cords), id(v.id){
+      adjacency(v.adjacency), id(v.id), name(v.name), cords(v.cords){
   }
 
   Vertex() :
@@ -50,7 +49,6 @@ public:
   const std::set<std::string> &getIDs() const{
     return id;
   }
-
 
   const std::vector<std::pair<std::string, int>> &getNeighbours() const{
     return adjacency;
