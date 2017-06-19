@@ -38,6 +38,10 @@ public:
     nodes.insert(std::make_pair(v.getName(), v));
   }
 
+  void addVertexes(std::map<std::string,Vertex> &&v){
+    nodes.insert(v.begin(),v.end());
+  }
+
 
   void addEdge(const Edge &e){
     if (nodes.find(e.getSource()) != nodes.end()){
@@ -47,7 +51,7 @@ public:
     }
   }
 
-  const Vertex& find_Vertex(const std::string &n) const{
+  const Vertex& find_Vertex(const std::string &n) const override{
     return nodes.at(n);
   }
 

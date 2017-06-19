@@ -35,7 +35,7 @@ public:
 
   virtual void addEdge(const Edge &e)=0;
 
-  virtual const Vertex& find_Vertex(const std::string &n) const=0;
+  virtual const Vertex& find_Vertex(const std::string &n)const =0;
 
   virtual void print_nodes()const=0;
 

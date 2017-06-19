@@ -25,11 +25,9 @@
 #endif
 #include <boost/test/unit_test.hpp>
 
-
 #include "../inc/List_graph.hpp"
 #include "../inc/Astar.hpp"
-
-
+#include "../inc/Fascade_graph.hpp"
 
 namespace {
 struct Fixture {
@@ -59,8 +57,8 @@ BOOST_AUTO_TEST_CASE(Are_basic_things_working){
 BOOST_AUTO_TEST_CASE(Can_calculate_weight){
   Vertex test("69789", "testowy", 57.4, 67.5);
   Vertex test2("63455", "testowy2", 50, 61.5);
-  int result=Astar::h_cost(test,test2);
-  BOOST_REQUIRE_EQUAL(result ,round(754200/(AVG_TRAM_SPEED * KPH_TO_MPM)));
+  int result = Astar::h_cost(test, test2);
+  BOOST_REQUIRE_EQUAL(result, round(754200 / (AVG_TRAM_SPEED * KPH_TO_MPM)));
 }
 
 BOOST_AUTO_TEST_CASE(Can_find_a_path){
@@ -77,7 +75,6 @@ BOOST_AUTO_TEST_CASE(Can_find_a_path){
   test3.addNeighbour("testowy4", 1);
   test4.addNeighbour("testowy5", 1);
 
-
   g.addVertex(test);
   g.addVertex(test1);
   g.addVertex(test2);
@@ -85,13 +82,45 @@ BOOST_AUTO_TEST_CASE(Can_find_a_path){
   g.addVertex(test4);
   g.addVertex(test5);
 
-  Astar astor{};
-  auto tested=g.findPath(astor,g.find_Vertex("testowy3"),g.find_Vertex("testowy5"));
-  decltype(tested) target{"testowy3","testowy4","testowy5"};
+  Astar astor { };
+  auto tested = g.findPath(astor, g.find_Vertex("testowy3"),
+      g.find_Vertex("testowy5"));
+  decltype(tested) target { "testowy3", "testowy4", "testowy5" };
 
-  bool result=std::equal(tested.begin(),tested.end(),target.begin()) ;
+  bool result = std::equal(tested.begin(), tested.end(), target.begin());
 
-  BOOST_REQUIRE_EQUAL(result,true);
+  BOOST_REQUIRE_EQUAL(result, true);
+}
+
+BOOST_AUTO_TEST_CASE(does_fascade_work){
+  std::map<std::string, Vertex> stations { };
+  std::vector<Route> routes { };
+  for (int i = 0; i < 200; i++){
+    Vertex station(std::to_string(i), "testowy" + std::to_string(i), i, i);
+    station.addNeighbour("testowy" + std::to_string(i + 1), 1);
+    stations["testowy" + std::to_string(i)] = station;
+  }
+  for (int i = 0; i < 3; i++){
+    Route route("testowa"+std::to_string(i),"dokads", TRAM, i);
+    for (int j = i*66; j < 66*i+67; j++){
+      route.addStop("testowy" + std::to_string(j),1);
+    }
+
+    routes.push_back(std::move(route));
+  }
+
+
+  Fascade_graph fg;
+  fg.add_routes(std::move(routes));
+  fg.add_stations(std::move(stations));
+  auto result = fg.get_to("testowy1", "testowy150");
+
+  for (auto&i : result){
+    std::cout <<"-----Linia: "<< i.getName() <<" Kierunek: "<< i.getDirection()<<" ---------"<< std::endl;
+    for (auto&j : i.getStations())
+      std::cout << j.first << std::endl;
+  }
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()}
