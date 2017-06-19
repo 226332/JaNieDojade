@@ -57,7 +57,7 @@ public:
 
   const std::vector<std::string> findPath(const Ipathfinder &ptf,
       const Vertex &start, const Vertex &finish) const override{
-    return ptf.find_path(start, finish,*this);
+    return std::move(ptf.find_path(start, finish,*this));
   }
 
   void print_nodes()const{

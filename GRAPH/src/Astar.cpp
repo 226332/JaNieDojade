@@ -66,7 +66,7 @@ std::vector<std::string> Astar::find_path(const Vertex &start,
       }
     }
     if (current == &finish){
-      return reconstruct_path(came_From, current);
+      return std::move(reconstruct_path(came_From, current));
     }
     open_Set.erase(current->getName());
     closed_Set.insert(current->getName());
@@ -104,6 +104,6 @@ std::vector<std::string> Astar::reconstruct_path(
     total_path.push_front(curr->getName());
   }
 
-  return std::vector<std::string>(total_path.begin(),total_path.end());
+  return std::move(std::vector<std::string>(total_path.begin(),total_path.end()));
 }
 
