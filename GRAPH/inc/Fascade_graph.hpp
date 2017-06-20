@@ -35,6 +35,10 @@ public:
     graph.addVertexes(std::move(s));
   }
 
+  const Vertex &find_station(const std::string &s){
+    return graph.find_Vertex(s);
+  }
+
   void add_routes(std::vector<Route> &&r){
     router.add_Routes(std::move(r));
   }
