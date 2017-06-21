@@ -11,8 +11,8 @@ find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
 set(TSOURCES test/Tests.cpp )
 set(CMAKE_BUILD_TYPE Debug)
-set(DCMAKE_CXX_COMPILER g++-7)
-set(CMAKE_CXX_FLAGS "-std=c++1z -Wall -pedantic") # -fsanitize=address -std=c++14
+set(DCMAKE_CXX_COMPILER g++)
+set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -pedantic") # -fsanitize=address -std=c++14
 
 
 if(Boost_FOUND)
