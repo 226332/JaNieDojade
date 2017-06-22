@@ -26,12 +26,13 @@
 class Route {
   std::vector<std::pair<std::string, int>> stations; //name,absolute time
   std::string name, direction; //name of a line and station is heading to
+  std::string var; //variation
   char type;
-  int var; //variation
+
 public:
   Route(std::string const &n, std::string const &d, char const &t,
-      int const &v) :
-      name(n), direction(d), type(t), var(v){
+      std::string const &v) :
+      name(n), direction(d), var(v), type(t){
   }
 
   void addStop(const std::string &n, const int &wgt){
@@ -42,7 +43,7 @@ public:
     return type;
   }
 
-  int getVariation(){
+  std::string getVariation(){
     return var;
   }
 

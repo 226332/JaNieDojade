@@ -63,7 +63,12 @@ public:
   }
 
   void addNeighbour(const std::string &n, const int &wgt){
-    adjacency[n] = wgt;
+    if (!adjacency[n]){
+      adjacency[n] = wgt;
+    } else if (adjacency[n] > wgt){
+      adjacency[n] = wgt;
+    }
+
   }
 
   void addID(const std::string &I){
